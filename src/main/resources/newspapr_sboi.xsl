@@ -23,7 +23,7 @@
 
     <xsl:variable name="apos">'</xsl:variable>
     <xsl:variable name="parser"
-                  select="javadateParser:new(concat('yyyy-MM-dd',$apos,'T',$apos,'HH:mm:ss.SSSXXX'))"/>
+                  select="javadateParser:new(concat('yyyy-MM-dd',$apos,'T',$apos,'HHmmss.SSSZ'))"/>
 
 
     <xsl:template match="/">
@@ -172,7 +172,7 @@
         <xsl:param name="lastModified"/>
 
         <xsl:for-each select="$eventGroup">
-            <xsl:sort select="javadate:getTime(javadateParser:parse($parser,p:eventDateTime/text()))" data-type="number" order="descending"/>
+            <xsl:sort select="javadate:getTime(javadateParser:parse($parser,translate(p:eventDateTime/text(),':','')))" data-type="number" order="descending"/>
 
             <xsl:if test="position() = 1">
 
